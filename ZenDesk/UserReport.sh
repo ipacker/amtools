@@ -1,16 +1,17 @@
 #!/bin/bash
-# created by Zoltan Tarcsay @ Fri Apr 26 16:33:28 CEST 2013
+# created by Zoltan Tarcsay
 
-# ZenDesk credentials (optional)
+# ZenDesk credentials
 #USERNAME=
 #PASSWORD=
+ZENDESK_URL="https://forgerock.zendesk.com"
 
+# File names
 USERS="users.xml"
 ORGS="organizations.xml"
 
+# Output file name
 FILE_NAME="list"
-WEB_SERVER_DIR="/Library/WebServer/Documents/"
-WEB_SERVER_URL="http://localhost:80"
 
 # Ask for ZenDesk credentials if they're not set
 function readCredentials () {
@@ -26,7 +27,7 @@ function readCredentials () {
 # Param $1 file name
 function getList () {
     echo "Downloading ${1} from Zendesk."
-    curl -s -u ${USERNAME}:${PASSWORD} https://forgerock.zendesk.com/${1} -O
+    curl -s -u ${USERNAME}:${PASSWORD} ${ZENDESK_URL}/${1} -O
 }
 
 # Combine User and Org list
@@ -38,7 +39,6 @@ function combineLists () {
 }
 
 # Create the XML stylesheet
-# TODO 2 lists: partners and customers
 function createXSL () {
 cat > ${FILE_NAME}.xsl << EOF
 <?xml version="1.0" encoding="UTF-8"?>
