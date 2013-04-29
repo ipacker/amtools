@@ -20,7 +20,7 @@
                     h1 { font-size: 48px; }
                     h2 { margin: 0 auto auto -20px; color: #6D8C61; background: linear-gradient(to left, #fafafa 0%,#ffffff 100%); padding-left: 20px; }
                     h3 { margin-top: 35px; }
-                    table { font-size: 12px; min-width: 700px; }
+                    table { font-size: 12px; width: 100%; }
                     th { background-color: #9ECC8D; font-weight: 700; }
                     tr:nth-child(odd) { background-color: #D9F2D0; }
                     tr:nth-child(even) { background-color: #E6F2E1; }
@@ -160,6 +160,42 @@
                                                         <li>
                                                             <span class="attribute-name"><xsl:value-of select="Attribute/@name" />=</span>
                                                             <span class="attribute-value"><xsl:value-of select="Value" /></span>
+                                                        </li>
+                                                    </xsl:for-each>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr class="blank"></tr>
+                                    </xsl:for-each>
+                                </tr>
+                            </table>
+                        </xsl:for-each>
+                    </div>
+
+                    <a name="policies"></a>
+                    <div class="h2">
+                        <h2>Policies</h2>
+                        <xsl:for-each select="//Service[@name='iPlanetAMPolicyService']/Configuration/OrganizationConfiguration[@name != '/sunamhiddenrealmdelegationservicepermissions']">
+                            <xsl:sort select="@name"/>
+                            <h3>Realm: <xsl:value-of select="@name" /></h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>Policy Name</th>
+                                </tr>
+                                <tr>
+                                    <xsl:for-each select="SubConfiguration[@name='Policies']/SubConfiguration">
+                                        <xsl:sort select="@name"/>
+                                        <tr class="toggle-details" onclick="toggle(this);">
+                                            <td><xsl:value-of select="position()" /></td>
+                                            <td><xsl:value-of select="@name" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="details">
+                                                <ul>
+                                                    <xsl:for-each select="AttributeValuePair[Attribute/@name='xmlpolicy']">
+                                                        <li>
+                                                            <span class="attribute-name"><xsl:value-of select="Value" /></span>
                                                         </li>
                                                     </xsl:for-each>
                                                 </ul>
