@@ -14,7 +14,7 @@
                 <style>
                     @import url(http://fonts.googleapis.com/css?family=Raleway:400,100,700);
                     body { font-family: Raleway, Helvetica; }
-                    .container { margin: 0 auto; width: 700px; }
+                    .container { margin: 0 250px; width: 700px; }
                     .h2 { background-color: #FAFAFA; margin: -20px auto 40px auto; padding: 20px; width: inherit; border-radius: 10px; }
                     h1, h2, h3 { font-weight: 100; }
                     h1 { font-size: 48px; }
@@ -31,14 +31,28 @@
                     .attribute-name { }
                     .attribute-value { font-weight: 700; }
                     .toggle-details { cursor: pointer; }
-                    .blank { display: none; };
+                    .blank { display: none; }
+                    .toc { position: fixed; top: 75px; left: 20px; background: #FAFAFA; border-radius: 10px; padding: 0; width: 210px; }
+                    .toc li { margin: 5px 0; padding: 0 10px; }
+                    .toc li:hover { background: #E3E3E3; }
+                    .toc a { color: black; text-decoration: none; }
                 </style>
             </head>
             <body>
+                <div class="toc">
+                    <ul>
+                        <li><a href="#naming">Naming Service</a></li>
+                        <li><a href="#agents">Agents</a></li>
+                        <li><a href="#auhn">Authentiation</a></li>
+                        <li><a href="#datastores">Data Stores</a></li>
+                        <li><a href="#policies">Policies</a></li>
+                    </ul>
+                </div>
                 <div class="container">
                     <h1>&#x2699; export-svc-cfg</h1>
+                    <a name="naming"></a>
                     <div class="h2">
-                        <h2>Naming</h2>
+                        <h2>Naming Service</h2>
                         <h3>Servers</h3>
                         <table>
                             <tr>
@@ -80,6 +94,7 @@
                         </table>
                     </div>
 
+                    <a name="agents"></a>
                     <div class="h2">
                         <h2>Agents</h2>
                         <xsl:for-each select="//Configuration[Instance/@name='agentgroup']/OrganizationConfiguration">
@@ -90,6 +105,45 @@
                                     <th></th>
                                     <th>Agent Name</th>
                                     <th>Agent Type</th>
+                                </tr>
+                                <tr>
+                                    <xsl:for-each select="SubConfiguration">
+                                        <xsl:sort select="@id"/>
+                                        <tr class="toggle-details" onclick="toggle(this);">
+                                            <td><xsl:value-of select="position()" /></td>
+                                            <td><xsl:value-of select="@name" /></td>
+                                            <td><xsl:value-of select="@id" /></td>
+                                        </tr>
+                                        <tr >
+                                            <td colspan="4" class="details">
+                                                <ul>
+                                                    <xsl:for-each select="AttributeValuePair">
+                                                        <li>
+                                                            <span class="attribute-name"><xsl:value-of select="Attribute/@name" />=</span>
+                                                            <span class="attribute-value"><xsl:value-of select="Value" /></span>
+                                                        </li>
+                                                    </xsl:for-each>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr class="blank"></tr>
+                                    </xsl:for-each>
+                                </tr>
+                            </table>
+                        </xsl:for-each>
+                    </div>
+
+                    <a name="datastores"></a>
+                    <div class="h2">
+                        <h2>Data Stores</h2>
+                        <xsl:for-each select="//Service[@name='sunIdentityRepositoryService']/Configuration/OrganizationConfiguration">
+                            <xsl:sort select="@name"/>
+                            <h3>Realm: <xsl:value-of select="@name" /></h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>Data Store Name</th>
+                                    <th>DS Type</th>
                                 </tr>
                                 <tr>
                                     <xsl:for-each select="SubConfiguration">
