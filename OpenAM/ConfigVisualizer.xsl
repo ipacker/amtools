@@ -50,18 +50,10 @@
                             <xsl:for-each select="//SubConfiguration[@id='server']">
                                 <xsl:sort select="AttributeValuePair/Value"/>
                                 <tr>
-                                    <td>
-                                        <xsl:value-of select="position()" />
-                                    </td>
-                                    <td>
-                                        <xsl:value-of select="AttributeValuePair[Attribute/@name='serverid']/Value"/>
-                                    </td>
-                                    <td>
-                                        <xsl:value-of select="@name"/>
-                                    </td>
-                                    <td>
-                                        <xsl:value-of select="AttributeValuePair[Attribute/@name='parentsiteid']/Value"/>
-                                    </td>
+                                    <td><xsl:value-of select="position()" /></td>
+                                    <td><xsl:value-of select="AttributeValuePair[Attribute/@name='serverid']/Value"/></td>
+                                    <td><xsl:value-of select="@name"/></td>
+                                    <td><xsl:value-of select="AttributeValuePair[Attribute/@name='parentsiteid']/Value"/></td>
                                 </tr>
                             </xsl:for-each>
                         </table>
@@ -77,22 +69,12 @@
                             <xsl:for-each select="//SubConfiguration[@name='com-sun-identity-sites']/SubConfiguration[@id='site']">
                                 <xsl:sort select="SubConfiguration/AttributeValuePair[Attribute/@name='primary-siteid']/Value"/>
                                 <tr>
-                                    <td>
-                                        <xsl:value-of select="position()" />
-                                    </td>
-                                    <td>
-                                        <xsl:value-of select="@name"/>
-                                    </td>
-                                    <td>
-                                        <xsl:value-of select="SubConfiguration/AttributeValuePair[Attribute/@name='primary-siteid']/Value"/>
-                                    </td>
-                                    <td>
-                                        <xsl:value-of select="SubConfiguration/AttributeValuePair[Attribute/@name='primary-url']/Value"/>
-                                    </td>
+                                    <td><xsl:value-of select="position()" /></td>
+                                    <td><xsl:value-of select="@name"/></td>
+                                    <td><xsl:value-of select="SubConfiguration/AttributeValuePair[Attribute/@name='primary-siteid']/Value"/></td>
+                                    <td><xsl:value-of select="SubConfiguration/AttributeValuePair[Attribute/@name='primary-url']/Value"/></td>
                                     <xsl:variable name="siteName" select="@name" />
-                                    <td>
-                                        <xsl:value-of select="count(//SubConfiguration[@id='server' and AttributeValuePair[Attribute/@name='parentsiteid']/Value=$siteName])"/>
-                                    </td>
+                                    <td><xsl:value-of select="count(//SubConfiguration[@id='server' and AttributeValuePair[Attribute/@name='parentsiteid']/Value=$siteName])"/></td>
                                 </tr>
                             </xsl:for-each>
                         </table>
@@ -100,16 +82,18 @@
 
                     <div class="h2">
                         <h2>Agents</h2>
-                        <h3>Web</h3>
-                        <table>
-                            <tr>
-                                <th></th>
-                                <th>Agent Name</th>
-                                <th>Agent Type</th>
-                            </tr>
-                            <tr>
-                                <xsl:for-each select="//Configuration[Instance/@name='agentgroup']/OrganizationConfiguration/SubConfiguration">
-                                    <!--<xsl:sort select="SubConfiguration/AttributeValuePair[Attribute/@name='primary-siteid']/Value"/>-->
+                        <xsl:for-each select="//Configuration[Instance/@name='agentgroup']/OrganizationConfiguration">
+                            <xsl:sort select="@name"/>
+                            <h3>Realm: <xsl:value-of select="@name" /></h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>Agent Name</th>
+                                    <th>Agent Type</th>
+                                </tr>
+                                <tr>
+                                    <xsl:for-each select="SubConfiguration">
+                                        <xsl:sort select="@id"/>
                                         <tr class="toggle-details" onclick="toggle(this);">
                                             <td><xsl:value-of select="position()" /></td>
                                             <td><xsl:value-of select="@name" /></td>
@@ -128,9 +112,10 @@
                                             </td>
                                         </tr>
                                         <tr class="blank"></tr>
-                                </xsl:for-each>
-                            </tr>
-                        </table>
+                                    </xsl:for-each>
+                                </tr>
+                            </table>
+                        </xsl:for-each>
                     </div>
 
                 </div>
