@@ -4,6 +4,7 @@
     <xsl:template match="/">
         <html>
             <head>
+                <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
                 <script>
                     function toggle(e) {
                         c = e.nextElementSibling.firstChild;
@@ -36,6 +37,7 @@
                     .toc li { margin: 5px 0; padding: 0 10px; }
                     .toc li:hover { background: #E3E3E3; }
                     .toc a { color: black; text-decoration: none; }
+                    .prettyprint { border: 0 ! important; white-space: pre-wrap; }
                 </style>
             </head>
             <body>
@@ -63,12 +65,30 @@
                             </tr>
                             <xsl:for-each select="//SubConfiguration[@id='server']">
                                 <xsl:sort select="AttributeValuePair/Value"/>
-                                <tr>
+                                <tr class="toggle-details" onclick="toggle(this);">
                                     <td><xsl:value-of select="position()" /></td>
                                     <td><xsl:value-of select="AttributeValuePair[Attribute/@name='serverid']/Value"/></td>
                                     <td><xsl:value-of select="@name"/></td>
                                     <td><xsl:value-of select="AttributeValuePair[Attribute/@name='parentsiteid']/Value"/></td>
                                 </tr>
+                                <tr>
+                                    <td colspan="4" class="details">
+                                        <ul>
+                                            <xsl:for-each select="AttributeValuePair[Attribute/@name='serverconfigxml']">
+                                                <li>
+                                                    <pre class="prettyprint lang-xml"><xsl:value-of select="Value" /></pre>
+                                                </li>
+                                            </xsl:for-each>
+                                            <br />
+                                            <xsl:for-each select="AttributeValuePair[Attribute/@name='serverconfig']/Value">
+                                                    <li>
+                                                        <span class="attribute-name"><xsl:value-of select="." /></span>
+                                                    </li>
+                                            </xsl:for-each>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="blank"></tr>
                             </xsl:for-each>
                         </table>
                         <h3>Sites</h3>
@@ -195,7 +215,7 @@
                                                 <ul>
                                                     <xsl:for-each select="AttributeValuePair[Attribute/@name='xmlpolicy']">
                                                         <li>
-                                                            <span class="attribute-name"><xsl:value-of select="Value" /></span>
+                                                            <pre class="prettyprint lang-xml"><xsl:value-of select="Value" /></pre>
                                                         </li>
                                                     </xsl:for-each>
                                                 </ul>
