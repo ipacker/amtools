@@ -12,17 +12,24 @@
                         c.style.display = (c.style.display == 'block') ? 'none' : 'block';
                         return false;
                     }
+                    function setSelected(e) {
+                        var sib = e.parentNode.children;
+                        for (var i in sib) {
+                                sib[i].className =  '';
+                        }
+                        e.className = 'selected';
+                    }
                 </script>
                 <style>
                     @import url(http://fonts.googleapis.com/css?family=Raleway:400,100,700);
                     body { font-family: Raleway, Helvetica; }
-                    .container { margin: 0 250px; width: 700px; }
-                    .h2 { background-color: #FAFAFA; margin: -20px auto 40px auto; padding: 20px; width: inherit; border-radius: 10px; }
+                    .container { margin: 0 175px; width: 700px; }
+                    .h2 { background-color: #FAFAFA; margin: -10px auto 40px auto; padding: 20px; width: inherit; border-radius: 10px; }
                     h1, h2, h3 { font-weight: 100; }
-                    h1 { font-size: 48px; }
+                    h1, { font-size: 48px; }
                     h2 { margin: 0 auto auto -20px; color: #6D8C61; background: linear-gradient(to left, #fafafa 0%,#ffffff 100%); padding-left: 20px; }
                     h3 { margin-top: 35px; }
-                    table { font-size: 12px; width: 100%; }
+                    table { font-size: 12px; width: 100%; border-spacing: 1px; }
                     th { background-color: #9ECC8D; font-weight: 700; }
                     tr:nth-child(odd) { background-color: #D9F2D0; }
                     tr:nth-child(even) { background-color: #E6F2E1; }
@@ -31,31 +38,36 @@
                     ul { list-style-type: none; padding: 0;}
                     .ln { width: 15px; text-align: right; background-color: #9ECC8D }
                     .details { max-width: 600px; font-size: 12px; overflow: scroll; margin: 10px; display: none; font-family: courier; border-radius: 5px; background: white; cursor: text; padding: 5px 20px;}
-                    .attribute-name { }
                     .attribute-value { font-weight: 700; }
                     .toggle-details { cursor: pointer; }
                     .blank { display: none; }
-                    .toc { position: fixed; top: 75px; left: 20px; background: #FAFAFA; border-radius: 10px; padding: 0; width: 210px; }
-                    .toc li { margin: 5px 0; padding: 0 10px; }
-                    .toc li:hover { background: #E3E3E3; }
-                    .toc a { color: black; text-decoration: none; }
+                    .logo { font-size: 48px; margin: 0; text-align: right; }
+                    .toc { position: fixed; top: 0px; left: 15px; width: 150px; }
+                    .toc ul { background: #FAFAFA; border-radius: 10px; padding: 10px 0; margin: 0 auto; }
+                    .toc li { margin: 0; padding: 0 10px; padding: 5px 10px; text-align: right; }
+                    .toc li:hover { background: #FFF; }
+                    .toc li.selected { background-color: #FFF; background: linear-gradient(to right, #fafafa 0%,#ffffff 100%) }
+                    .toc a { color: black; text-decoration: none; display: block }
                     .prettyprint { border: 0 ! important;}
                 </style>
             </head>
             <body>
+
                 <!-- TOC -->
+
                 <div class="toc">
+                    <h1 class="logo">&#x2699;</h1>
                     <ul>
-                        <li><a href="#naming">Naming Service</a></li>
-                        <li><a href="#agents">Agents</a></li>
-                        <!-- <li><a href="#auhn">Authentiation</a></li> -->
-                        <li><a href="#datastores">Data Stores</a></li>
-                        <li><a href="#policies">Policies</a></li>
-                        <li><a href="#federation">Federation</a></li>
+                        <li id="tab1" onclick="setSelected(this)"><a href="#naming">Naming Service</a></li>
+                        <li onclick="setSelected(this)"><a href="#agents">Agents</a></li>
+                        <!-- <li onclick="setSelected(this)"><a href="#auhn">Authentiation</a></li> -->
+                        <li onclick="setSelected(this)"><a href="#datastores">Data Stores</a></li>
+                        <li onclick="setSelected(this)"><a href="#policies">Policies</a></li>
+                        <li onclick="setSelected(this)"><a href="#federation">Federation</a></li>
                     </ul>
                 </div>
                 <div class="container">
-                    <h1>&#x2699; export-svc-cfg</h1>
+                    <h1>export-svc-cfg</h1>
 
                     <!-- Naming Service -->
 
