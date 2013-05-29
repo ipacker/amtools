@@ -76,7 +76,7 @@
                     <ul>
                         <li id="tab1" onclick="setSelected(this)"><a href="#naming">Naming Service</a></li>
                         <li onclick="setSelected(this)"><a href="#agents">Agents</a></li>
-                        <li onclick="setSelected(this)"><a href="#authentication">Authentiation</a></li>
+                        <li onclick="setSelected(this)"><a href="#authentication">Authentication</a></li>
                         <li onclick="setSelected(this)"><a href="#datastores">Data Stores</a></li>
                         <li onclick="setSelected(this)"><a href="#policies">Policies</a></li>
                         <li onclick="setSelected(this)"><a href="#federation">Federation</a></li>
@@ -188,6 +188,7 @@
                                         <td colspan="3" class="details">
                                             <ul>
                                                 <xsl:for-each select="AttributeValuePair">
+                                                <xsl:sort select="Attribute/@name"/>
                                                     <li>
                                                         <span class="attribute-name"><xsl:value-of select="Attribute/@name" />=</span>
                                                         <span class="attribute-value"><xsl:value-of select="Value" /></span>
