@@ -168,7 +168,7 @@
                     <a name="agents"></a>
                     <div class="h2">
                         <h2>Agents</h2>
-                        <xsl:for-each select="//Configuration[Instance/@name='agentgroup']/OrganizationConfiguration">
+                        <xsl:for-each select="//Service[@name='AgentService']/Configuration/OrganizationConfiguration">
                             <xsl:sort select="@name"/>
                             <h3>Realm: <xsl:value-of select="@name" /></h3>
                             <table>
